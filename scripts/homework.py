@@ -177,7 +177,7 @@ class Homework:
         yaml.dump(self.get_hw_info(), yamlFile)
 
         # Run taft to generate the self-grade form.
-        print(subprocess.check_output(Config.get_global().get_taft_cmd("self-grade.html"), shell=True))
+        print(subprocess.check_output(Config.get_global().get_taft_cmd(Config.get_global().makefile_loc + "/self-grade.html"), shell=True))
         shutil.move(Config.get_global().release_loc + "/self-grade.html", self_grade_form_output_location)
         assert os.path.isfile(self_grade_form_output_location), "Self-grade form should generate"
         print("Self-grade form at " + self_grade_form_output_location)
