@@ -39,7 +39,7 @@ questionParts: [a, a, b, b, c, a]
 optionalParts: ["3a", 4]
 ```
 
-This indicates that the homework consists of 1a, 2a, 3a-b, 4a-b, 5a-c, 6a. If there are no sub-parts to a problem, we will just call it #a on the self grader. Optional parts can be specified as # only (i.e. 2 should not be graded) or as a string "2a", which indicates that 2a should not be graded. If, for example, you don't want 3a and 4b to be graded, you should specify `optionalParts: ["3a", "4b"].
+This indicates that the homework consists of 1a, 2a, 3a-b, 4a-b, 5a-c, 6a. If there are no sub-parts to a problem, we will just call it #a on the self grader. Optional parts can be specified as # only (i.e. 2 should not be graded) or as a string "2a", which indicates that 2a should not be graded. If, for example, you don't want 3a and 4b to be graded, you should specify `optionalParts: ["3a", "4b"]`.
 
 ### Releasing Homework
 
@@ -69,6 +69,8 @@ Examples:
 
 (google doc) https://github.com/ee16b/gradebook2
 
-TODO: lab
+# TODO
 
-TODO: update/generate homework.php
+- TODO: create zip files for lab automatically
+- TODO: update/generate homework.php
+- TODO: use Gradescope API to automate creating assignments
