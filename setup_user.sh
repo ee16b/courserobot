@@ -88,6 +88,9 @@ export GENERAL_YAML=$HOME/$SEMESTER_TAG-www-src/general.yaml
 export MAKEFILE_LOC=$PWD
 export HW_LOC=$content_dir/$SEMESTER_TAG/hws
 export DISC_LOC=$content_dir/$SEMESTER_TAG/discussion
+export CONTENT_REPOS=$lab_dir:$content_dir
+
+export PATH=$PATH:$PWD/scripts
 EOF
 
 # Add to bashrc
