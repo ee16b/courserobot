@@ -44,9 +44,6 @@ class Config:
         # Path to release location
         self.release_loc = os.environ['RELEASE_LOC'] if from_env else ""
 
-        # Course Piazza ID
-        self.piazza_id = os.environ['PIAZZA_ID'] if from_env else ""
-
         # Course Manager Piazza account e-mail
         self.piazza_email = os.environ['PIAZZA_EMAIL'] if from_env else ""
 
