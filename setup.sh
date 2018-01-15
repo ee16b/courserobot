@@ -40,7 +40,7 @@ apt-get install -y mosh
 apt-get install -y make python3-setuptools
 
 # Development tools
-apt-get install -y git tig npm nodejs-legacy
+apt-get install -y git tig npm nodejs
 
 # Piazza image creation
 apt-get install -y imagemagick
