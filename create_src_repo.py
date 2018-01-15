@@ -17,7 +17,7 @@ def main(args):
     
     g = Github(github_username, github_password)
     org = g.get_organization("ee16b")
-    new_repo = org.create_repo(name=repo_name, description=descriptiong, has_wiki=False, has_issues=False, private=True)
+    new_repo = org.create_repo(name=repo_name, description=description, has_wiki=False, has_issues=False, private=True)
     bots_team = next(filter(lambda team: team.name == "bots", org.get_teams()))
     bots_team.set_repo_permission(new_repo, "admin")
     return 0
