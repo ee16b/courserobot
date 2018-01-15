@@ -2,6 +2,8 @@
 # User-mode setup script.
 # Do not call directly.
 
+debug_mode="no" # set to yes to debug
+
 if [[ $EUID -eq 0 ]]; then
     echo "This script must not be run as root"
     exit 1
@@ -24,7 +26,9 @@ source $HOME/credentials.sh
 source $HOME/user_credentials.sh
 
 # Remove user_credentials since they are sensitive
-rm $HOME/user_credentials.sh
+if [[ $debug_mode != "yes" ]]; then
+    rm $HOME/user_credentials.sh
+fi
 
 # Git config
 git config --global user.name "ee16b-robot"
@@ -32,7 +36,10 @@ git config --global user.email "ee16b-robot@lists.berkeley.edu"
 
 # Import ssh key
 mkdir -p ~/.ssh
-mv $HOME/id_rsa ~/.ssh/
+cp $HOME/id_rsa ~/.ssh/
+if [[ $debug_mode != "yes" ]]; then
+    rm $HOME/id_rsa
+fi
 chmod 600 ~/.ssh/id_rsa
 
 # Disable ssh warnings for headless processing
