@@ -35,6 +35,16 @@ mkdir -p ~/.ssh
 mv $HOME/id_rsa ~/.ssh/
 chmod 600 ~/.ssh/id_rsa
 
+# Disable ssh warnings for headless processing
+cat <<EOF >> ~/.ssh/config
+Host github.com
+  StrictHostKeyChecking no
+  UserKnownHostsFile=/dev/null
+Host cory.eecs.berkeley.edu
+  StrictHostKeyChecking no
+  UserKnownHostsFile=/dev/null
+EOF
+
 # Create source repo (xxxx-www-src.git)
 ./create_src_repo.py "$GITHUB_USER" "$GITHUB_PASSWORD" "$SEMESTER_TAG-www-src" "Website files for $SEMESTER_TAG"
 
