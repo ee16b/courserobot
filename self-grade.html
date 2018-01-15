@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Homework {{hw-helper.hwNum}} Self Grades</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300|Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="css/self_grades_style.css">
+  </head>
+  <body>
+    {{#if general.selfGradeMandatoryComments}}{{else}}
+    <script type="application/javascript">
+      function updateCommentRequired(part) { // e.g. "q1f"
+        var sel = document.querySelector('input[name="' + part + '"]:checked')
+        if (sel == null) {
+          setCommentRequired(part, true);
+        } else {
+          setCommentRequired(part, (sel.value != "10" && sel.value != "0"));
+        }
+      }
+      function setCommentRequired(part, isRequired) { // e.g. "q1f", true
+        if (isRequired) {
+          document.getElementById(part + "-comment").setAttribute("required", "");
+        } else {
+          document.getElementById(part + "-comment").removeAttribute("required");
+        }
+      }
+    </script>{{/if}}
+    <section class="content">
+      <h1 class="content__heading">Submit Homework {{hw-helper.hwNum}} Self Grades</h1>
+      <form class="content__form contact-form">
+        <div class="txt">
+          <p>Please fill out the form below <i>(preferably using Chrome or Firefox)</i>!</p>
+          <p class="content__lede">All fields, including all comments, should be filled out. Comments should be single-lined (don't press Enter/Return) and should not contain any special characters. The self-grade scale is as follows:</p>
+          <p>
+            <table>
+            {{#each general.selfGradeScale}}
+              <tr><td class="selfgrade_table" style="text-align: center"><b>{{@key}}</b></td><td class="selfgrade_table">{{this}}</td></tr>
+            {{/each}}
+            </table>
+          </p>
+        </div>
+        <!-- Name -->
+        <div class="contact-form__input-group">
+          <label class="contact-form__label" for="name">Name</label>
+          <input class="contact-form__input contact-form__input--text" id="name" name="name" type="text" required/>
+        </div>
+        <!-- Email Address -->
+        <div class="contact-form__input-group">
+          <label class="contact-form__label" for="email">E-mail Address (Enter complete Berkeley E-mail ID, such as mudit@berkeley.edu)</label>
+          <input class="contact-form__input contact-form__input--email" id="email" name="email" type="email" required/>
+        </div>
+        <!-- SID Here -->
+        <div class="contact-form__input-group">
+          <label class="contact-form__label" for="sid">SID</label>
+          <input class="contact-form__input contact-form__input--text" id="sid" name="sid" type="text" required/>
+        </div>
+        {{#each hw-helper.questions}}
+        <!-- Question {{id}}) -->
+        <div class="contact-form__input-group">
+          <h5>Question {{id}}</h5> 
+          {{#each ../general.selfGradeScale}}
+          <input class="contact-form__input contact-form__input--radio" id="q{{../id}}{{@key}}" name="q{{../id}}" type="radio" value="{{@key}}"{{#if ../../general.selfGradeMandatoryComments}}{{else}} onclick="updateCommentRequired('q{{../id}}')"{{/if}} required />
+          <label class="contact-form__label contact-form__label--radio" for="q{{../id}}{{@key}}">{{@key}}</label>
+          {{/each}}
+        </div>
+        <div class="contact-form__input-group">
+          <label class="contact-form__label" for="q{{id}}-comment">Comment</label>
+          <input class="contact-form__input contact-form__input--text" id="q{{id}}-comment" name="q{{id}}-comment" type="text" required/>
+        </div>
+        {{/each}}
+        <!-- Submit Button -->
+        <p align="center"><button class="contact-form__button" type="submit">Generate!</button></p>
+      </form>
+    </section>
+    <!-- JSON Data displayer -->
+    <div class="results" style="display:none" id="results-div">
+      <h2 class="results__heading">Form Data</h2>
+      <p align="center"><a class="contact-form__button" id="json-download" data-file="selfgrades-{{hw-helper.hwNum}}.txt"></a></p>
+      <p class="content__lede"><i>OR</i> copy and paste the output below to <b>selfgrades-{{hw-helper.hwNum}}.txt</b> <i>and upload to the "Homework {{hw-helper.hwNum}} Self Grade" assignment on Gradescope!</i> Double check that the file name and contents match what's seen below and that all fields are filled out. Chrome or Firefox will warn you if you've missed a form field, but browsers like Safari won't :(. <b>After uploading, verify that the Gradescope autograder correctly calculated your score.</b> If it didn't, double check that the JSON is valid, and/or post on <a href="{{general.piazza}}">Piazza</a> for help.</p>
+      <pre class="results__display-wrapper"><code class="results__display"></code></pre>
+    </div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.13.0/polyfill.min.js'></script>
+    <script src="../js/self-grade.js"></script>
+  </body>
+</html>
