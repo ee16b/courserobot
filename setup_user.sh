@@ -36,7 +36,7 @@ mv $HOME/id_rsa ~/.ssh/
 chmod 600 ~/.ssh/id_rsa
 
 # Create source repo (xxxx-www-src.git)
-./create_src_repo.sh "$GITHUB_USER" "$GITHUB_PASSWORD" "$SEMESTER_TAG-www-src" "Website files for $SEMESTER_TAG"
+./create_src_repo.py "$GITHUB_USER" "$GITHUB_PASSWORD" "$SEMESTER_TAG-www-src" "Website files for $SEMESTER_TAG"
 
 # Clone source repo locally
 git clone git@github.com:ee16b/www-src-template.git "$HOME/$SEMESTER_TAG-www-src"
