@@ -11,7 +11,8 @@ from config import Config, set_global_config
 import repo
 
 VALID_REPOS = [
-    "release"
+    "release",
+    "content_repos"
 ]
 
 def main(args):
@@ -19,6 +20,9 @@ def main(args):
     repo_name = str(args.repo)
     if repo_name == "release":
         repo.pull_repo(Config.get_global().release_loc)
+    elif repo_name == "content_repos":
+        for repo_loc in Config.get_global().content_repos:
+            repo.pull_repo(repo_loc)
     else:
         assert False, "Shouldn't reach here. Is some repo unimplemented?"
     return 0

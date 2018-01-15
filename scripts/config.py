@@ -29,6 +29,9 @@ class Config:
         # Makefile location (root of courserobot repo)
         self.makefile_loc = os.environ['MAKEFILE_LOC'] if from_env else ""
 
+        # Colon-separated list of content repos to be pulled.
+        self.content_repos = str(os.environ['CONTENT_REPOS']).split(':') if from_env else []
+
         # Path to notes location
         #self.notes_loc = os.environ['NOTES_LOC'] if from_env else ""
 
