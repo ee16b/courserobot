@@ -1,0 +1,23 @@
+# Semester tag.
+# Examples: fa17 (Fall 2017), sp18 (Spring 2018), su19 (Summer 2019)
+tag: REPLACE_ME
+
+# Piazza id.
+# Replace this with the piazza id of the course.
+# Find it by visitng the Piazza of the course and noting the ID in the url:
+# https://piazza.com/class/<piazza_id>
+piazza_id: jceoir01fzd6c2
+# testClass by default
+
+# Whether self-grades are required to have comments or not.
+selfGradeMandatoryComments: false
+
+# Self-grade scale.
+# Likely you won't need to modify this.
+selfGradeScale: {
+  0: "Didn't attempt or very very wrong",
+  2: 'Got started and made some progress, but went off in the wrong direction or with no clear direction',
+  5: Right direction and got half-way there,
+  8: Mostly right but a minor thing missing or wrong,
+  10: "100% correct"
+}
