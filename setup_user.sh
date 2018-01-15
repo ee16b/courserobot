@@ -16,6 +16,9 @@ fi
 set -eux
 set -o pipefail
 
+# Get semester tag
+export SEMESTER_TAG=$(./scripts/read_tag.py $HOME/general.yaml)
+
 # Pull in credentials.
 source $HOME/credentials.sh
 source $HOME/user_credentials.sh

@@ -26,9 +26,6 @@ fi
 set -eux
 set -o pipefail
 
-# Get semester tag
-export SEMESTER_TAG=$(./scripts/read_tag.py $HOME/general.yaml)
-
 # Change shell to bash to avoid any potential complications with legacy scripts.
 echo "dash dash/sh boolean false" | debconf-set-selections
 DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
