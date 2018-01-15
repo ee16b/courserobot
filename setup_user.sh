@@ -91,4 +91,4 @@ export DISC_LOC=$content_dir/$SEMESTER_TAG/discussion
 EOF
 
 # Add to bashrc
-cat "source $HOME/env_vars.sh" >> ~/.bashrc
+echo "source $HOME/env_vars.sh" >> ~/.bashrc
