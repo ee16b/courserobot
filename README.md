@@ -3,7 +3,7 @@ Course Robot (New Course Manager for Gradescope)
 
 # Setup
 
-1. Start a new AWS instance with Ubuntu 16.04. Make sure to enable SSH (port 22) and mosh (port 60000-61000 UDP). ![Ports to enable](images/ports.png)
+1. Start a new AWS instance with Ubuntu 16.04. Make sure to enable SSH (port 22) and mosh (port 60000-61000 UDP). We recommend at least 10GB of disk space. ![Ports to enable](images/ports.png)
 2. Copy the the course robot private key (`id_rsa`) and credentials file (`credentials.sh`) to the instance: (example) `scp id_rsa credentials.sh ubuntu@<instance IP>:~/`
 3. SSH into the instance.
 4. Clone this repo and enter it: `cd ~; git clone https://github.com/ee16b/courserobot.git && cd courserobot`
