@@ -17,6 +17,7 @@ import post_hw_piazza
 from config import Config
 import repo
 
+
 class Homework:
     def __init__(self, hw_num: int) -> None:
         self.hw_num = int(hw_num)  # type: int
@@ -153,6 +154,33 @@ class Homework:
         self.push_release_repo()
         repo.update_inst_server()
         self.post_to_piazza()
+        self.create_gradescope_assignment_for_homework()
+
+    def create_gradescope_assignment_for_homework(self) -> None:
+        """Remind the user to create a Gradescope assignment for the homework."""
+        print("****************************")
+        print("Homework {hw_num} released".format(hw_num=self.hw_num))
+        print(
+            "If you haven't already, please create a Gradescope assignment titled exactly \"Homework {hw_num}\" worth {points} points.".format(
+                hw_num=self.hw_num, points=self.get_grading_points()))
+        print("****************************")
+
+    def create_gradescope_assignment_for_self_grades(self) -> None:
+        """Remind the user to create a Gradescope assignment for the self-grades."""
+        zip_file = "http://inst.eecs.berkeley.edu/~ee16b/{tag}/{zip_relative}".format(
+            tag=Config.get_global().get_semester_tag(),
+            zip_relative=self.autograder_zip_relative
+        )
+        print("****************************")
+        print("Homework {hw_num} solutions released".format(hw_num=self.hw_num))
+        print(
+            "If you haven't already, please create a Gradescope 'Programming Assignment' titled exactly \"Homework {hw_num} Self Grade\" worth {points} points.".format(
+                hw_num=self.hw_num, points=self.get_grading_points()
+            ))
+        print("You can find the autograder .zip here: {zip_file}".format(
+            zip_file=zip_file
+        ))
+        print("****************************")
 
     def build_solutions(self) -> None:
         """Build solutions and put them into the release location."""
@@ -166,6 +194,7 @@ class Homework:
         self.push_release_repo()
         repo.update_inst_server()
         self.post_solutions_to_piazza()
+        self.create_gradescope_assignment_for_self_grades()
 
     def generate_self_grade_form(self):
         """Build the self-grade form and put it an an appropriate location."""
@@ -177,24 +206,41 @@ class Homework:
         yaml.dump(self.get_hw_info(), yamlFile)
 
         # Run taft to generate the self-grade form.
-        print(subprocess.check_output(Config.get_global().get_taft_cmd("self-grade.html"), cwd=Config.get_global().makefile_loc, shell=True))
+        print(subprocess.check_output(Config.get_global().get_taft_cmd("self-grade.html"),
+                                      cwd=Config.get_global().makefile_loc, shell=True))
         shutil.move(Config.get_global().release_loc + "/self-grade.html", self_grade_form_output_location)
         assert os.path.isfile(self_grade_form_output_location), "Self-grade form should generate"
         print("Self-grade form at " + self_grade_form_output_location)
 
         # Autograder zip file generation.
         print(subprocess.check_output(
-            "zip -rj %s/autograder%s-%sp.zip %s/autograder" % (
-                self.autograder_release_dir,
-                str(self.hw_num),
-                str(self.get_grading_points()),
-                Config.get_global().makefile_loc)
+            "zip -rj %s %s" % (
+                self.autograder_release_zip,
+                os.path.join(Config.get_global().makefile_loc, "autograder"))
             , shell=True))
 
     @property
-    def autograder_release_dir(self):
+    def autograder_zip_relative(self) -> str:
+        """Get the relative path to the autograder zip relative to the release dir."""
+        return str(os.path.join(self.autograder_dir_relative, "autograder{hw_num}-{grading_points}.zip".format(
+            hw_num=self.hw_num,
+            grading_points=self.get_grading_points()
+        )))
+
+    @property
+    def autograder_release_zip(self) -> str:
+        """Return the path to the autograder zip under the release dir."""
+        return str(os.path.join(Config.get_global().release_loc, self.autograder_zip_relative))
+
+    @property
+    def autograder_release_dir(self) -> str:
         """Return the path to the autograder folder in the release dir."""
-        return os.path.join(Config.get_global().release_loc, "hw_autograder")
+        return str(os.path.join(Config.get_global().release_loc, self.autograder_dir_relative))
+
+    @property
+    def autograder_dir_relative(self) -> str:
+        """Return the path to the autograder folder relative to the release dir."""
+        return "hw_autograder"
 
     @property
     def homework_release_dir(self):
