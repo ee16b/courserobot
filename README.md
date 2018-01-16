@@ -30,8 +30,19 @@ Invite the course robot account (likely `course.manager.ee16 AT gmail.com`, repl
 3. Resize to about 1000x1000px, with quality of about 80 to save space.
 4. Place the pictures into `images/` of the release repo.
 5. For GSIs, edit `gsi_list.csv` following the existing pattern. For example, if Bob's picture is at `images/bob.jpg` in the release repo, then the picture column should contain "bob.jpg". For professors, edit `profs_list.csv`.
+6. Push to the release repo.
+
+Follow the instructions for "Manual Changes" below to make them visible on the website.
 
 # User Guide
+
+## Manual Changes
+
+To push manual changes to the release repo, SSH into the cours robot backend and run:
+
+```shell
+update_repos.py inst
+```
 
 ## Schedule
 
