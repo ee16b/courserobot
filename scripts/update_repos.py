@@ -25,6 +25,7 @@ def main(args):
         for repo_loc in Config.get_global().content_repos:
             repo.pull_repo(repo_loc)
     elif repo_name == "inst":
+        repo.pull_repo(Config.get_global().release_loc)
         repo.update_inst_server()
     else:
         assert False, "Shouldn't reach here. Is some repo unimplemented?"
