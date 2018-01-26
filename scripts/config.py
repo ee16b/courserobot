@@ -84,6 +84,7 @@ class Config:
             "--helper '" + self.makefile_loc + "/helpers/*.js'",
             "--partial '" + self.makefile_loc + "/sub-templates/*.html'",
             "--data '" + self.makefile_loc + "/autograder/*.yaml'",
+            "--data '" + self.release_loc + "/general.yaml'",
             '--dest-dir ' + self.release_loc,
             template_file
         ])
