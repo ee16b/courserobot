@@ -66,5 +66,8 @@ npm install --save -g handlebars-helpers
 npm i handlebars-helper-moment --save-dev -g
 npm install handlebars-fs --save -g
 
+# taft has "#!/usr/bin/env node", so symlink a 'node' binary.
+ln -s /usr/bin/nodejs /usr/local/bin/node
+
 # Continue in user-mode setup.
 sudo -H -u ubuntu ./setup_user.sh
