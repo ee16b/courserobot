@@ -17,8 +17,8 @@ function make_piazza_imgs {
     do
       cp body.tex body_temp.tex
       python3 $script_dir/image_generator.py $1 $i $2/$1
-      pdflatex -interaction=batchmode --shell-escape prob$1.tex
-      pdflatex -interaction=batchmode --shell-escape prob$1.tex 
+      pdflatex -interaction=batchmode prob$1.tex
+      pdflatex -interaction=batchmode prob$1.tex
       mv prob$1.pdf screenshots/prob$1q$i.pdf
       mv body_temp.tex body.tex
       convert -density 350 -resize 1000x -trim -append "screenshots/prob$1q$i.pdf" "screenshots/prob$i.png"
