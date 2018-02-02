@@ -25,12 +25,26 @@ for i in range(index_of_beginqunlist):
   if i < index_of_maketitle:
     new_content.append(content[i])
 
+# There may be extra empty lines, comments, etc in the qunlist section.
+# So we'll find the Q'th \input{q_ line.
+index_of_q_number = -1  # In theory it is (index_of_beginqunlist + Q_NUMBER)
+current_q = 0
+for i in range(index_of_beginqunlist+1, index_of_endqunlist):
+  if "\input{q_" in content[i]:
+    current_q += 1
+  if current_q == Q_NUMBER:
+    index_of_q_number = i
+    break
+assert index_of_q_number != -1, "Can't find the given question number"
+
 new_content.append('\def\qcontributor#1{}') # Hack to disable contributor list from generating a large footer at the bottom
 new_content.append('\\pagestyle{empty}') # <-- doesn't seem to do anything/work?
 
 new_content.append(content[index_of_beginqunlist])
 new_content.append('\setcounter{sparectr}{' + str(Q_NUMBER - 1) + '}')
-new_content.append(content[index_of_beginqunlist + Q_NUMBER])
+
+new_content.append(content[index_of_q_number])
+
 new_content.append(content[index_of_endqunlist])
 new_content.append(content[index_of_enddoc])
 
